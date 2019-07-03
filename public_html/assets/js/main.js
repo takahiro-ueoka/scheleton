@@ -30,10 +30,11 @@ function setup_hidden_date() {
 function output_log() {
     let datepicker_id = get_datepicker_id();
     let hidden_date_id = get_hidden_date_id();
-    let log = JSON.stringify({
+    let log = {
         datepicker_value: $('#'+datepicker_id).val(),
         hidden_date_value: $('#'+hidden_date_id).val()
-    });
+    };
+    console.log(log);
 }
 
 function get_datepicker_id() {
