@@ -18,6 +18,8 @@ function setup_datepicker() {
             $('#'+get_hidden_date_id()).change();
         }
     });
+    $('.ui-datepicker-current-day').removeClass('ui-datepicker-current-day');
+    $('#'+id).val("");
 }
 
 function setup_hidden_date() {
