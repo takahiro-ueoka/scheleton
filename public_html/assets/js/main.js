@@ -13,7 +13,10 @@ function setup_datepicker() {
             }, 0);
         },
         altField: '#'+get_hidden_date_id(),
-        altFormat: 'yy/mm/dd'
+        altFormat: 'yy/mm/dd',
+        onSelect: () => {
+            $('#'+get_hidden_date_id()).change();
+        }
     });
 }
 
