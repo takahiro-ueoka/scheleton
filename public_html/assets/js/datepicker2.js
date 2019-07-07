@@ -322,7 +322,7 @@ var Datepicker2 = class {
         });
         $(document).on('mouseup.since_datepicker_show_'+id, (e) => {
             if (self.is_day_mouseover(e.pageX, e.pageY)) {
-                setTimeout(() => { self.export_datepicker_date(); }, 100);
+                setTimeout(() => { self.exportDatepickerDate(); }, 100);
             }
         });
     }
@@ -362,7 +362,7 @@ var Datepicker2 = class {
             let input_value = $('#'+id).val();
             let input_date = self.convert_input_date(input_value);
             if (input_date) {
-                self.update_datepicker_date(input_date);
+                self.updateDatepickerDate(input_date);
             }
         });
     }
