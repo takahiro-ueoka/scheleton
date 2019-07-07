@@ -96,6 +96,9 @@ function setup_date_edit() {
     });
 
     // イベント設定
+    $('#'+id).focus(() => {
+        $('#'+datepicker_id).datepicker('show');
+    });
     $('#'+id).keyup(() => {
         let input_value = $('#'+id).val();
         let input_date = convert_input_date(input_value);
