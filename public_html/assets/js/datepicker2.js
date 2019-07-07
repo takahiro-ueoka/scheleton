@@ -56,7 +56,6 @@ var Datepicker2 = class {
         return r;
     }
 
-
     /**
      * input text 要素の ID を検証（未設定の場合は自動設定）して取得します
      */
@@ -227,6 +226,12 @@ var Datepicker2 = class {
             'left': position.left,
             'top': position.top + height
         });
+
+        let date = $('#'+id).val();
+        let fixedDate = this.convertInputDate(date);
+        if (fixedDate) {
+            this.updateDatepickerDate(fixedDate);
+        }
     
         self.start_watch_mouse();
     }
