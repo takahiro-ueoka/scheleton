@@ -158,19 +158,23 @@ function is_datepicker_mouseover(pageX, pageY) {
     return true;
 }
 
-function is_current_day_mouseover(pageX, pageY) {
+function is_day_mouseover(pageX, pageY) {
     let datepicker_id = get_datepicker_id();
     let datepicker_div = $('#'+datepicker_id);
-    let current_day_tds = datepicker_div.find('td.ui-datepicker-current-day');
-    if (current_day_tds.length < 1) {
+    let day_tds = datepicker_div.find('td');
+    if (day_tds.length < 1) {
         return false;
     }
-    let current_day_td = $(current_day_tds[0]);
-    let offset = current_day_td.offset();
+    let day_number_as = day_tds.children('a.ui_state_default');
+    if (day_number_as.length < 1) {
+        return false;
+    }
+    let day_td = $(day_number_as[0]).parent();
+    let offset = day_td.offset();
     let minX = offset.left;
     let minY = offset.top;
-    let width = current_day_td.outerWidth();
-    let height = current_day_td.outerHeight();
+    let width = day_td.outerWidth();
+    let height = day_td.outerHeight();
     let maxX = minX + width;
     let maxY = minY + height;
 
@@ -210,8 +214,8 @@ function start_watch_mouse() {
         set_mouse(e);
     });
     $(document).on('mouseup.since_datepicker_show', (e) => {
-        if (is_current_day_mouseover(e.pageX, e.pageY)) {
-            export_datepicker_date();
+        if (is_day_mouseover(e.pageX, e.pageY)) {
+            setTimeout(() => { export_datepicker_date(); }, 100);
         }
     });
 }
