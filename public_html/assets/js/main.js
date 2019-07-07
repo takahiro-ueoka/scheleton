@@ -98,12 +98,12 @@ function setup_date_edit() {
     let datepicker_id = get_datepicker_id();
 
     // イベント設定
-    $('#'+id).focus(() => {
-        $('#'+datepicker_id).css({'display': 'block'});
-    });
-    $('#'+id).blur(() => {
-        $('#'+datepicker_id).css({'display': 'none'});
-    });
+    // $('#'+id).focus(() => {
+    //     $('#'+datepicker_id).css({'display': 'block'});
+    // });
+    // $('#'+id).blur(() => {
+    //     $('#'+datepicker_id).css({'display': 'none'});
+    // });
     $('#'+id).keyup(() => {
         let input_value = $('#'+id).val();
         let input_date = convert_input_date(input_value);
