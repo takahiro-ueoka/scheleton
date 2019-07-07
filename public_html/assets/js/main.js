@@ -1,4 +1,4 @@
-$(() => {
+$(document).ready(() => {
     setup_datepicker();
     // setup_hidden_date();
     setup_date_edit();
@@ -86,6 +86,16 @@ function get_last_day_of_month(year, month) {
 
 function setup_date_edit() {
     let id = get_date_edit_id();
+    // 位置設定
+    let datepicker_id = get_datepicker_id();
+    let position = $('#'+datepicker_id).position();
+    $('#'+id).css({
+        'position': 'absolute',
+        'left': position.left,
+        'top': position.top
+    });
+
+    // イベント設定
     $('#'+id).keyup(() => {
         let input_value = $('#'+id).val();
         let input_date = convert_input_date(input_value);
