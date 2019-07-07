@@ -21,12 +21,21 @@ function setup_datepicker() {
     });
     $('.ui-datepicker-current-day').removeClass('ui-datepicker-current-day');
     $('#'+id).val("");
+
+    // div 位置調整
+    let date_edit_id = get_date_edit_id();
+    let position = $('#'+date_edit_id).position();
+    let height = $('#'+date_edit_id).outerHeight(true);
+    $('#'+id).css({
+        'position': 'absolute',
+        'left': position.left,
+        'top': position.top + height
+    });
 }
 
 function update_datepicker_date(input_date) {
     let id = get_datepicker_id();
     $('#'+id).datepicker('setDate', input_date);
-    $('#'+id).datepicker('show');
 }
 
 function setup_hidden_date() {
@@ -86,21 +95,14 @@ function get_last_day_of_month(year, month) {
 
 function setup_date_edit() {
     let id = get_date_edit_id();
-    // 位置設定
     let datepicker_id = get_datepicker_id();
-    let position = $('#'+datepicker_id).position();
-    $('#'+id).css({
-        'position': 'absolute',
-        'left': position.left,
-        'top': position.top
-    });
 
     // イベント設定
     $('#'+id).focus(() => {
-        $('#'+datepicker_id).datepicker('show');
+        $('#'+datepicker_id).css({'display': 'block'});
     });
     $('#'+id).blur(() => {
-        $('#'+datepicker_id).datepicker('hide');
+        $('#'+datepicker_id).css({'display': 'none'});
     });
     $('#'+id).keyup(() => {
         let input_value = $('#'+id).val();
