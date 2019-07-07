@@ -99,6 +99,9 @@ function setup_date_edit() {
     $('#'+id).focus(() => {
         $('#'+datepicker_id).datepicker('show');
     });
+    $('#'+id).blur(() => {
+        $('#'+datepicker_id).datepicker('hide');
+    });
     $('#'+id).keyup(() => {
         let input_value = $('#'+id).val();
         let input_date = convert_input_date(input_value);
