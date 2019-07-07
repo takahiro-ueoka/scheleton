@@ -161,6 +161,7 @@ function is_datepicker_mouseover(pageX, pageY) {
 function is_day_mouseover(pageX, pageY) {
     let datepicker_id = get_datepicker_id();
     let datepicker_div = $('#'+datepicker_id);
+    let div_offset = datepicker_div.offset();
     let day_tds = datepicker_div.find('td');
     if (day_tds.length < 1) {
         console.log('no tds');
@@ -173,8 +174,8 @@ function is_day_mouseover(pageX, pageY) {
     }
     let day_td = $(day_number_as[0]).parent();
     let offset = day_td.offset();
-    let minX = offset.left;
-    let minY = offset.top;
+    let minX = offset.left + div_offset.left;
+    let minY = offset.top + div_offset.top;
     let width = day_td.outerWidth();
     let height = day_td.outerHeight();
     let maxX = minX + width;
