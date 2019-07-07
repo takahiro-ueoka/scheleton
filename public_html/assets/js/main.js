@@ -114,8 +114,6 @@ function show_datepicker() {
 function is_datepicker_mouseover(pageX, pageY) {
     let datepicker_id = get_datepicker_id();
     let widget = $('#'+datepicker_id).datepicker('widget');
-    // 非表示の場合はマウスがカレンダーの上に乗っていない
-    if (widget.css('display') == 'none') return false;
     let offset = widget.offset();
     let minX = offset.left;
     let minY = offset.top;
