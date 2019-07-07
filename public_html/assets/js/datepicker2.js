@@ -28,6 +28,16 @@ var Datepicker2 = class {
     }
 
     /**
+     * 確定処理を行います
+     */
+    apply() {
+        let self = this;
+        if (self.onApply) {
+            self.onApply();
+        }
+    }
+
+    /**
      * ランダム ID を取得します
      */
     getRandomId() {
@@ -91,6 +101,15 @@ var Datepicker2 = class {
         datepickerDiv.val("");
 
         return datepickerDiv.attr('id');
+    }
+
+    /**
+     * input text の内容を更新します
+     * @param {*} date 更新する日付文字列
+     */
+    updateInput(date) {
+        let id = this.inputId;
+        $('#'+id).val(date);
     }
 
     /**
@@ -345,23 +364,43 @@ var Datepicker2 = class {
         let id = self.inputId;
     
         // イベント設定
+
+        // フォーカスされた場合はカレンダーを表示します
         $('#'+id).focus(() => {
             if (!self.is_datepicker_display()) {
                 self.show_datepicker();
             }
         });
+
+        // フォーカスが外れた場合、カレンダー外にマウスがあるならばカレンダーを非表示にします
         $('#'+id).blur(() => {
             let mouse = self.get_mouse();
             if (self.is_datepicker_mouseover(mouse.pageX, mouse.pageY)) {
+                // カレンダー内にマウスがあるならば input text に再度フォーカスします
                 setTimeout(() => { $('#'+id).focus(); }, 100);
             } else {
                 self.hide_datepicker();
             }
         });
-        $('#'+id).keyup(() => {
+
+        // キーが押された後の処理
+        $('#'+id).keyup((e) => {
+            // 入力された文字列の補完処理
             let input_value = $('#'+id).val();
             let input_date = self.convertInputDate(input_value);
             if (input_date) {
+                // 押されたキーがエンターキーの場合
+                if (e.keyCode === 13) {
+                    // 補完された文字列を input text に反映します
+                    self.updateInput(input_date);
+
+                    // 確定処理を行います
+                    self.apply();
+
+                    // ここで処理を終えます
+                    return;
+                }
+                // それ以外の場合
                 self.updateDatepickerDate(input_date);
             }
         });
