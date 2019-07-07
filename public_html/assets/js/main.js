@@ -166,7 +166,7 @@ function is_day_mouseover(pageX, pageY) {
         console.log('no tds');
         return false;
     }
-    let day_number_as = day_tds.children('a.ui_state_default');
+    let day_number_as = day_tds.find('a.ui-state-default');
     if (day_number_as.length < 1) {
         console.log('no as');
         return false;
