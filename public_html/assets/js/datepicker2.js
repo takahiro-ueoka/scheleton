@@ -360,7 +360,7 @@ var Datepicker2 = class {
         });
         $('#'+id).keyup(() => {
             let input_value = $('#'+id).val();
-            let input_date = self.convert_input_date(input_value);
+            let input_date = self.convertInputDate(input_value);
             if (input_date) {
                 self.updateDatepickerDate(input_date);
             }
