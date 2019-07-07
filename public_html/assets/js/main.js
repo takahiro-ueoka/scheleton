@@ -27,7 +27,7 @@ function setup_datepicker() {
     let position = $('#'+date_edit_id).offset();
     let height = $('#'+date_edit_id).outerHeight(true);
     $('#'+id).css({
-        'position': 'absolute',
+        'position': 'relative',
         'left': position.left,
         'top': position.top + height
     });
