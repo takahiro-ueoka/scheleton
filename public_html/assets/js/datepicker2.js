@@ -69,15 +69,15 @@ var Datepicker2 = class {
     createDatepicker() {
         let self = this;
         let inputId = self.inputId;
-        let id = inputId + "_datepicker";
-        let datepickerDiv = $('#'+id);
-        if (datepickerDiv.length > 0) {
-            datepickerDiv.remove();
-        }
+        // let id = inputId + "_datepicker";
+        // let datepickerDiv = $('#'+id);
+        // if (datepickerDiv.length > 0) {
+        //     datepickerDiv.remove();
+        // }
         let element = $('#'+ inputId)[0];
         if (!element || element == undefined) throw "no date edit element";
-        datepickerDiv = $('<div>');
-        datepickerDiv.attr(id);
+        let datepickerDiv = $('<div>');
+        // datepickerDiv.attr(id);
         $(element).after(datepickerDiv);
         datepickerDiv.datepicker({
             dateFormat: 'yy/mm/dd',
@@ -90,7 +90,7 @@ var Datepicker2 = class {
         datepickerDiv.find('.ui-datepicker-current-day').removeClass('ui-datepicker-current-day');
         datepickerDiv.val("");
 
-        return id;
+        return datepickerDiv.attr('id');
     }
 
     /**
