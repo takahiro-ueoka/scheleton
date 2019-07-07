@@ -126,7 +126,6 @@ function is_datepicker_display() {
     let datepicker_id = get_datepicker_id();
     let datepicker_div = $('#'+datepicker_id);
     let display = datepicker_div.css('display');
-    console.log({display: display});
     return (display != 'none');
 }
 
@@ -140,15 +139,6 @@ function is_datepicker_mouseover(pageX, pageY) {
     let height = datepicker_div.outerHeight();
     let maxX = minX + width;
     let maxY = minY + height;
-
-    console.log({
-        pageX: pageX,
-        pageY: pageY,
-        minX: minX,
-        minY: minY,
-        maxX: maxX,
-        maxY: maxY
-    });
 
     // マウス X 座標がカレンダーの横幅の範囲内にないときは乗っていない
     if (pageX < minX|| pageX > maxX) return false;
@@ -212,11 +202,9 @@ function get_mouse() {
 
 function start_watch_mouse() {
     $(document).on('mousemove.since_datepicker_show', (e) => {
-        console.log(e);
         set_mouse(e);
     });
     $(document).on('mouseup.since_datepicker_show', (e) => {
-        console.log(e);
         if (is_day_mouseover(e.pageX, e.pageY)) {
             setTimeout(() => { export_datepicker_date(); }, 100);
         }
@@ -256,12 +244,9 @@ function setup_date_edit() {
 
 function output_log() {
     let datepicker_id = get_datepicker_id();
-    // let hidden_date_id = get_hidden_date_id();
     let log = {
         datepicker_value: $('#'+datepicker_id).val(),
-        // hidden_date_value: $('#'+hidden_date_id).val()
     };
-    console.log(log);
 }
 
 function get_datepicker_id() {
