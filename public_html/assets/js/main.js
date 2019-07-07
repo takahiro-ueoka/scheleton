@@ -89,7 +89,7 @@ function get_last_day_of_month(year, month) {
 
 function setup_date_edit() {
     let id = get_date_edit_id();
-    $('#'+id).change(() => {
+    $('#'+id).keyup(() => {
         let input_value = $('#'+id).val();
         let input_date = convert_input_date(input_value);
         if (input_date) {
