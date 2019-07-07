@@ -212,9 +212,11 @@ function get_mouse() {
 
 function start_watch_mouse() {
     $(document).on('mousemove.since_datepicker_show', (e) => {
+        console.log(e);
         set_mouse(e);
     });
     $(document).on('mouseup.since_datepicker_show', (e) => {
+        console.log(e);
         if (is_day_mouseover(e.pageX, e.pageY)) {
             setTimeout(() => { export_datepicker_date(); }, 100);
         }
