@@ -1,5 +1,4 @@
 $(document).ready(() => {
-    setup_mouse();
     setup_datepicker();
     // setup_hidden_date();
     setup_date_edit();
@@ -95,6 +94,8 @@ function hide_datepicker() {
         'left': position.left,
         'top': position.top + height
     });
+
+    stop_watch_mouse();
 }
 
 function show_datepicker() {
@@ -109,6 +110,16 @@ function show_datepicker() {
         'left': position.left,
         'top': position.top + height
     });
+
+    start_watch_mouse();
+}
+
+function is_datepicker_display() {
+    let datepicker_id = get_datepicker_id();
+    let datepicker_div = $('#'+datepicker_id);
+    let display = datepicker_div.css('display');
+    console.log({display: display});
+    return (display != 'none');
 }
 
 function is_datepicker_mouseover(pageX, pageY) {
@@ -153,10 +164,14 @@ function get_mouse() {
     return g_mouse;
 }
 
-function setup_mouse() {
-    $(document).mousemove((e) => {
+function start_watch_mouse() {
+    $(document).on('mousemove.since_datepicker_show', (e) => {
         set_mouse(e);
     });
+}
+
+function stop_watch_mouse() {
+    $(document).off('mousemove.since_datepicker_show');
 }
 
 function setup_date_edit() {
@@ -164,11 +179,15 @@ function setup_date_edit() {
 
     // イベント設定
     $('#'+id).focus(() => {
-        show_datepicker();
+        if (!is_datepicker_display()) {
+            show_datepicker();
+        }
     });
     $('#'+id).blur(() => {
         let mouse = get_mouse();
-        if (!is_datepicker_mouseover(mouse.pageX, mouse.pageY)) {
+        if (is_datepicker_mouseover(mouse.pageX, mouse.pageY)) {
+            setTimeout(() => { $('#'+id).focus(); }, 100);
+        } else {
             hide_datepicker();
         }
     });
