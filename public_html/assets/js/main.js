@@ -172,30 +172,28 @@ function is_day_mouseover(pageX, pageY) {
         console.log('no as');
         return false;
     }
-    let day_td = $(day_number_as[0]).parent();
-    let offset = day_td.offset();
-    let minX = offset.left + div_offset.left;
-    let minY = offset.top + div_offset.top;
-    let width = day_td.outerWidth();
-    let height = day_td.outerHeight();
-    let maxX = minX + width;
-    let maxY = minY + height;
-
-    console.log({
-        pageX: pageX,
-        pageY: pageY,
-        minX: minX,
-        minY: minY,
-        maxX: maxX,
-        maxY: maxY
+    let found = null;
+    day_number_as.each((i, day_number_a) => {
+        if (found) return;
+        let day_td = $(day_number_a).parent();
+        let offset = day_td.offset();
+        let minX = offset.left;
+        let minY = offset.top;
+        let width = day_td.outerWidth();
+        let height = day_td.outerHeight();
+        let maxX = minX + width;
+        let maxY = minY + height;
+        // マウス X 座標がセルの横幅の範囲内にないときは乗っていない
+        if (pageX < minX|| pageX > maxX) return;
+        // マウス Y 座標がセルの縦幅の範囲内にないときは乗っていない
+        if (pageY < minY || pageY > maxY) return;
+        
+        found = day_number_a;
     });
 
-    // マウス X 座標がセルの横幅の範囲内にないときは乗っていない
-    if (pageX < minX|| pageX > maxX) return false;
-    // マウス Y 座標がセルの縦幅の範囲内にないときは乗っていない
-    if (pageY < minY || pageY > maxY) return false;
+    let result = (found) ? true : false;
 
-    return true;
+    return result;
 }
 
 var g_mouse = {
