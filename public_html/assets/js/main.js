@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    setup_mouse();
     setup_datepicker();
     // setup_hidden_date();
     setup_date_edit();
@@ -101,7 +102,7 @@ function show_datepicker() {
     let datepicker_id = get_datepicker_id();
 
     let position = $('#'+id).offset();
-    let height = $('#'+id).outerHeight(true);
+    let height = $('#'+id).outerHeight({margin: true});
     $('#'+datepicker_id).css({
         'display': 'block',
         'position': 'absolute',
@@ -110,6 +111,55 @@ function show_datepicker() {
     });
 }
 
+function is_datepicker_mouseover(pageX, pageY) {
+    let datepicker_id = get_datepicker_id();
+    let widget = $('#'+datepicker_id).datepicker('widget');
+    // 非表示の場合はマウスがカレンダーの上に乗っていない
+    if (widget.css('display') == 'none') return false;
+    let offset = widget.offset();
+    let minX = offset.left;
+    let minY = offset.top;
+    let width = widget.outerWidth();
+    let height = widget.outerHeight();
+    let maxX = minX + width;
+    let maxY = minY + height;
+
+    console.log({
+        pageX: pageX,
+        pageY: pageY,
+        minX: minX,
+        minY: minY,
+        maxX: maxX,
+        maxY: maxY
+    });
+
+    // マウス X 座標がカレンダーの横幅の範囲内にないときは乗っていない
+    if (pageX < minX|| pageX > maxX) return false;
+    // マウス Y 座標がカレンダーの縦幅の範囲内にないときは乗っていない
+    if (pageY < minY || pageY > maxY) return false;
+
+    return true;
+}
+
+var g_mouse = {
+    pageX: 0,
+    pageY: 0
+};
+
+function set_mouse(e) {
+    g_mouse.pageX = e.pageX;
+    g_mouse.pageY = e.pageY;
+}
+
+function get_mouse() {
+    return g_mouse;
+}
+
+function setup_mouse() {
+    $(document).mousemove((e) => {
+        set_mouse(e);
+    });
+}
 
 function setup_date_edit() {
     let id = get_date_edit_id();
@@ -119,7 +169,10 @@ function setup_date_edit() {
         show_datepicker();
     });
     $('#'+id).blur(() => {
-        hide_datepicker();
+        let mouse = get_mouse();
+        if (!is_datepicker_mouseover(mouse.pageX, mouse.pageY)) {
+            hide_datepicker();
+        }
     });
     $('#'+id).keyup(() => {
         let input_value = $('#'+id).val();
