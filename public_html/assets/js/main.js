@@ -163,10 +163,12 @@ function is_day_mouseover(pageX, pageY) {
     let datepicker_div = $('#'+datepicker_id);
     let day_tds = datepicker_div.find('td');
     if (day_tds.length < 1) {
+        console.log('no tds');
         return false;
     }
     let day_number_as = day_tds.children('a.ui_state_default');
     if (day_number_as.length < 1) {
+        console.log('no as');
         return false;
     }
     let day_td = $(day_number_as[0]).parent();
