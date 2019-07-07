@@ -113,8 +113,8 @@ function show_datepicker() {
 
 function is_datepicker_mouseover(pageX, pageY) {
     let datepicker_id = get_datepicker_id();
-    let widget = $('#'+datepicker_id).datepicker('widget');
-    let offset = widget.offset();
+    let datepicker_div = $('#'+datepicker_id);
+    let offset = datepicker_div.offset();
     let minX = offset.left;
     let minY = offset.top;
     let width = widget.outerWidth();
