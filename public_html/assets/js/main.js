@@ -29,6 +29,14 @@ function update_datepicker_date(input_date) {
     $('#'+id).datepicker('setDate', input_date);
 }
 
+function export_datepicker_date() {
+    let id = get_datepicker_id();
+    let date = $('#'+id).val();
+    if (!date || date == undefined) return;
+    let date_edit_id = get_date_edit_id();
+    $('#'+date_edit_id).val(date);
+}
+
 function setup_hidden_date() {
     let id = get_hidden_date_id();
     $('#'+id).change(() => {
@@ -150,6 +158,39 @@ function is_datepicker_mouseover(pageX, pageY) {
     return true;
 }
 
+function is_current_day_mouseover(pageX, pageY) {
+    let datepicker_id = get_datepicker_id();
+    let datepicker_div = $('#'+datepicker_id);
+    let current_day_tds = datepicker_div.find('td.ui-datepicker-current-day');
+    if (current_day_tds.length < 1) {
+        return false;
+    }
+    let current_day_td = $(current_day_tds[0]);
+    let offset = current_day_td.offset();
+    let minX = offset.left;
+    let minY = offset.top;
+    let width = current_day_td.outerWidth();
+    let height = current_day_td.outerHeight();
+    let maxX = minX + width;
+    let maxY = minY + height;
+
+    console.log({
+        pageX: pageX,
+        pageY: pageY,
+        minX: minX,
+        minY: minY,
+        maxX: maxX,
+        maxY: maxY
+    });
+
+    // マウス X 座標がセルの横幅の範囲内にないときは乗っていない
+    if (pageX < minX|| pageX > maxX) return false;
+    // マウス Y 座標がセルの縦幅の範囲内にないときは乗っていない
+    if (pageY < minY || pageY > maxY) return false;
+
+    return true;
+}
+
 var g_mouse = {
     pageX: 0,
     pageY: 0
@@ -168,10 +209,16 @@ function start_watch_mouse() {
     $(document).on('mousemove.since_datepicker_show', (e) => {
         set_mouse(e);
     });
+    $(document).on('mouseup.since_datepicker_show', (e) => {
+        if (is_current_day_mouseover(e.pageX, e.pageY)) {
+            export_datepicker_date();
+        }
+    });
 }
 
 function stop_watch_mouse() {
     $(document).off('mousemove.since_datepicker_show');
+    $(document).off('mouseup.since_datepicker_show');
 }
 
 function setup_date_edit() {
