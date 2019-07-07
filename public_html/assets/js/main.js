@@ -37,30 +37,27 @@ function setup_hidden_date() {
 }
 
 function convert_input_date(input_value) {
-    let input_trim = input_value.trim;
-    if (!input_trim || input_trim == undefined) {
+    if (input_value.trim == undefined) {
         console.log("no method:trim");
         return null;
     }
-    input_value = input_trim();
-    let input_match = input_value.match;
-    let input_split = input_value.split;
-    if (!input_match || input_match == undefined) {
+    input_value = input_value.trim();
+    if (input_value.match == undefined) {
         console.log("no method:match");
         return null;
     }
-    if (!input_split || input_split == undefined) {
+    if (input_value.split == undefined) {
         console.log("no method:split");
         return null;
     }
     let regexp_full = /^\d{4}\/{1}\d{1,2}\/{1}\d{1,2}$/;
-    if (input_match(regexp_full)) return input_value;
+    if (input_value.match(regexp_full)) return input_value;
     let regexp_month_day = /^\d{1,2}\/{1}\d{0,2}$/;
-    if (!input_match(regexp_month_day)) {
+    if (!input_value.match(regexp_month_day)) {
         console.log("no match");
         return null;
     }
-    let items = input_split('/', 2);
+    let items = input_value.split('/', 2);
     let default_date = new Date();
     let year = default_date.getFullYear();
     let month = items[0] || 0;
