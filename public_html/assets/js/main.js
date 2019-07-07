@@ -102,7 +102,7 @@ function show_datepicker() {
     let datepicker_id = get_datepicker_id();
 
     let position = $('#'+id).offset();
-    let height = $('#'+id).outerHeight({margin: true});
+    let height = $('#'+id).outerHeight(true);
     $('#'+datepicker_id).css({
         'display': 'block',
         'position': 'absolute',
