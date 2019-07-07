@@ -1,6 +1,5 @@
 $(document).ready(() => {
     setup_datepicker();
-    // setup_hidden_date();
     setup_date_edit();
     hide_datepicker();
 });
@@ -35,13 +34,6 @@ function export_datepicker_date() {
     if (!date || date == undefined) return;
     let date_edit_id = get_date_edit_id();
     $('#'+date_edit_id).val(date);
-}
-
-function setup_hidden_date() {
-    let id = get_hidden_date_id();
-    $('#'+id).change(() => {
-        output_log();
-    });
 }
 
 function convert_input_date(input_value) {
