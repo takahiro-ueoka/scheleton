@@ -2,6 +2,7 @@ $(document).ready(() => {
     setup_datepicker();
     // setup_hidden_date();
     setup_date_edit();
+    hide_datepicker();
 });
 
 function setup_datepicker() {
@@ -21,7 +22,6 @@ function setup_datepicker() {
     });
     $('.ui-datepicker-current-day').removeClass('ui-datepicker-current-day');
     $('#'+id).val("");
-
 }
 
 function update_datepicker_date(input_date) {
@@ -83,24 +83,43 @@ function get_last_day_of_month(year, month) {
     return day;
 }
 
+function hide_datepicker() {
+    let id = get_date_edit_id();
+    let datepicker_id = get_datepicker_id();
+    let position = $('#'+id).offset();
+    let height = $('#'+id).outerHeight(true);
+    $('#'+datepicker_id).css({
+        'display': 'none',
+        'position': 'absolute',
+        'left': position.left,
+        'top': position.top + height
+    });
+}
 
-function setup_date_edit() {
+function show_datepicker() {
     let id = get_date_edit_id();
     let datepicker_id = get_datepicker_id();
 
+    let position = $('#'+id).offset();
+    let height = $('#'+id).outerHeight(true);
+    $('#'+datepicker_id).css({
+        'display': 'block',
+        'position': 'absolute',
+        'left': position.left,
+        'top': position.top + height
+    });
+}
+
+
+function setup_date_edit() {
+    let id = get_date_edit_id();
+
     // イベント設定
     $('#'+id).focus(() => {
-        let position = $('#'+id).offset();
-        let height = $('#'+id).outerHeight(true);
-        $('#'+datepicker_id).css({
-            'display': 'block',
-            'position': 'absolute',
-            'left': position.left,
-            'top': position.top + height
-        });
+        show_datepicker();
     });
     $('#'+id).blur(() => {
-        $('#'+datepicker_id).css({'display': 'none'});
+        hide_datepicker();
     });
     $('#'+id).keyup(() => {
         let input_value = $('#'+id).val();
