@@ -24,7 +24,7 @@ function setup_datepicker() {
 
     // div 位置調整
     let date_edit_id = get_date_edit_id();
-    let position = $('#'+date_edit_id).position();
+    let position = $('#'+date_edit_id).offset();
     let height = $('#'+date_edit_id).outerHeight(true);
     $('#'+id).css({
         'position': 'absolute',
