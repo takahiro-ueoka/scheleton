@@ -117,8 +117,8 @@ function is_datepicker_mouseover(pageX, pageY) {
     let offset = datepicker_div.offset();
     let minX = offset.left;
     let minY = offset.top;
-    let width = widget.outerWidth();
-    let height = widget.outerHeight();
+    let width = datepicker_div.outerWidth();
+    let height = datepicker_div.outerHeight();
     let maxX = minX + width;
     let maxY = minY + height;
 
